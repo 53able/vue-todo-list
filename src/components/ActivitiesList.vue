@@ -5,7 +5,7 @@
         <v-toolbar-title>Todo List</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <AddActivityField ref="inputFeild" />
+        <AddActivityField/>
         <v-list subheader>
           <Activity v-for="(activity, index) in activities" :key="index" :activity="activity" />
         </v-list>
@@ -14,31 +14,23 @@
   </v-flex>
 </template>
 
-<script>
-import Activity from './Activity'
-import AddActivityField from './AddActivityField'
+<script lang="ts">
+import Activity from './Activity.vue'
+import AddActivityField from './AddActivityField.vue'
+import { Component, Vue } from 'vue-property-decorator'
 
-export default {
-  name: 'ActivitiesList',
+@Component({
   components: {
     Activity,
     AddActivityField
-  },
-  data () {
-    return {
-    }
-  },
-  computed: {
-    activities () {
-      return this.$store.state.activities
-    }
-  },
-  methods: {
-    add () {
-      this.$refs.inputFeild.add()
-    }
+  }
+})
+class ActivitiesList extends Vue {
+  get activities (): Object {
+    return this.$store.state.activities
   }
 }
+export default ActivitiesList
 </script>
 
 <style>
